@@ -24,11 +24,6 @@
 **************************************************/
 
 void bits_to_bytes(const uint8_t *bits, size_t bits_len, uint8_t *bytes) {
-    // Verifying input
-    if (bits_len % 8 != 0) {
-        fprintf(stderr, "Error: bits_len must be multiple of 8.\n");
-    }
-
     size_t bytes_len = bits_len / 8;
     memset(bytes, 0, bytes_len);
 
@@ -121,7 +116,7 @@ void encode(const uint16_t *F, size_t d, uint8_t *B) {
 **************************************************/
 
 void decode(const uint8_t *B, size_t d, uint16_t *F) {
-    uint8_t *b = malloc(8 * d * sizeof(uint8_t));
+    uint8_t *b = malloc(8 * 32 * d * sizeof(uint8_t));
     bytes_to_bits(B, d, b);
 
     uint16_t m = (d < 12) ? (1 << d) : MLKEM_Q; // 2^d if d<12 or q if d==12
